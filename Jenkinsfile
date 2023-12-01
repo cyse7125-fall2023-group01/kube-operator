@@ -81,5 +81,30 @@ pipeline {
                 }
             }
         }
+        
+        stage('connect to cluster') {
+            steps {
+                script {
+                    sh 'gcloud auth activate-service-account --key-file ~/gcp_sa_key.json'
+                    sh 'gcloud container clusters get-credentials primary --region us-east1 --project root-mapper-401202'
+                    sh 'kubectl get pods'
+                    sh 'make deploy IMG=quay.io/csye7125_webapp/webapp-container-registry/kube-operator:latest'
+                }
+            }
+        }
+        stage('make deploy') {
+            steps {
+                script {
+                    withCredentials([
+                    string(credentialsId: 'quayLogin', variable: 'quayLogin'),
+                    string(credentialsId: 'quayEncryptedPwd', variable: 'quayEncryptedPwd')]) {
+                        sh 'docker login -u=${quayLogin} -p=${quayEncryptedPwd} quay.io'
+                        sh 'make undeploy'
+                        sh 'make deploy IMG=quay.io/csye7125_webapp/webapp-container-registry/kube-operator'
+                    }
+                }
+            }
+        }
+
     }
 }
