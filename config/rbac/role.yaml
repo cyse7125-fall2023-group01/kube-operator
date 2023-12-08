@@ -13,6 +13,7 @@ rules:
   - cronjobs
   - pods
   - services
+  - secrets
   verbs:
   - create
   - delete
