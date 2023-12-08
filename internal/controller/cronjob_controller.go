@@ -149,6 +149,10 @@ func (r *CronJobReconciler) buildCronJob(cronJob *monitoringv1alpha1.CronJob) (*
 		{Name: "RESPONSE_STATUS_CODE", Value: strconv.Itoa(cronJob.Spec.ResponseStatusCode)},
 		{Name: "CHECK_INTERVAL_IN_SECONDS", Value: strconv.Itoa(cronJob.Spec.CheckIntervalInSeconds)},
 	}
+	imagePullSecrets := []corev1.LocalObjectReference{
+		{Name: "registry-secret"},
+	}
+
 	cronJobObject := &batchv1.CronJob{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      cronJob.Name,
@@ -164,11 +168,12 @@ func (r *CronJobReconciler) buildCronJob(cronJob *monitoringv1alpha1.CronJob) (*
 							Containers: []corev1.Container{
 								{
 									Name:  "producer",
-									Image: "abhigade123/producer1:latest",
+									Image: "csye7125_webapp/webapp-container-registry/kafka-producer:latest",
 									Env:   envVars,
 								},
 							},
-							RestartPolicy: corev1.RestartPolicyOnFailure,
+							ImagePullSecrets: imagePullSecrets,
+							RestartPolicy:    corev1.RestartPolicyOnFailure,
 						},
 					},
 				},
