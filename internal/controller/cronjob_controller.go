@@ -168,7 +168,7 @@ func (r *CronJobReconciler) buildCronJob(cronJob *monitoringv1alpha1.CronJob) (*
 							Containers: []corev1.Container{
 								{
 									Name:  "producer",
-									Image: "csye7125_webapp/webapp-container-registry/kafka-producer:latest",
+									Image: "quay.io/csye7125_webapp/webapp-container-registry/kafka-producer:latest",
 									Env:   envVars,
 								},
 							},
