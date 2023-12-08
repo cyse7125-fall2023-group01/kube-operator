@@ -168,7 +168,7 @@ func (r *CronJobReconciler) buildCronJob(cronJob *monitoringv1alpha1.CronJob) (*
 							Containers: []corev1.Container{
 								{
 									Name:  "producer",
-									Image: "abhigade123/producer:latest",
+									Image: "abhigade123/producer1:latest",
 									Env:   envVars,
 								},
 							},
