@@ -1,0 +1,86 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.13.0
+  name: cronjobs.monitoring.httpcheck.io
+spec:
+  group: monitoring.httpcheck.io
+  names:
+    kind: CronJob
+    listKind: CronJobList
+    plural: cronjobs
+    singular: cronjob
+  scope: Namespaced
+  versions:
+  - name: v1alpha1
+    schema:
+      openAPIV3Schema:
+        description: CronJob is the Schema for the cronjobs API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: CronJobSpec defines the desired state of CronJob
+            properties:
+              ID:
+                type: string
+              check_interval_in_seconds:
+                type: integer
+              is_paused:
+                type: boolean
+              name:
+                type: string
+              num_retries:
+                type: integer
+              response_status_code:
+                type: integer
+              response_time_sla:
+                type: integer
+              uptime_sla:
+                type: integer
+              uri:
+                type: string
+              use_ssl:
+                type: boolean
+            required:
+            - ID
+            - check_interval_in_seconds
+            - is_paused
+            - name
+            - num_retries
+            - response_status_code
+            - response_time_sla
+            - uptime_sla
+            - uri
+            - use_ssl
+            type: object
+          status:
+            description: CronJobStatus defines the observed state of CronJob
+            properties:
+              errorMessage:
+                type: string
+              last_execution_time:
+                format: date-time
+                type: string
+              status:
+                type: string
+              success:
+                type: boolean
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}

@@ -1,0 +1,25 @@
+test -s /home/ab/producer/operator1/bin/controller-gen && /home/ab/producer/operator1/bin/controller-gen --version | grep -q v0.13.0 || \
+GOBIN=/home/ab/producer/operator1/bin go install sigs.k8s.io/controller-tools/cmd/controller-gen@v0.13.0
+/home/ab/producer/operator1/bin/controller-gen rbac:roleName=manager-role crd webhook paths="./..." output:crd:artifacts:config=config/crd/bases
+/home/ab/producer/operator1/bin/controller-gen object:headerFile="hack/boilerplate.go.txt" paths="./..."
+go fmt ./...
+go vet ./...
+go run ./cmd/main.go
+2023-11-16T13:50:18-05:00	INFO	setup	starting manager
+2023-11-16T13:50:18-05:00	INFO	controller-runtime.metrics	Starting metrics server
+2023-11-16T13:50:18-05:00	INFO	controller-runtime.metrics	Serving metrics server	{"bindAddress": ":8080", "secure": false}
+2023-11-16T13:50:18-05:00	INFO	starting server	{"kind": "health probe", "addr": "[::]:8081"}
+2023-11-16T13:50:18-05:00	INFO	Starting EventSource	{"controller": "cronjob", "controllerGroup": "batch", "controllerKind": "CronJob", "source": "kind source: *v1.CronJob"}
+2023-11-16T13:50:18-05:00	INFO	Starting Controller	{"controller": "cronjob", "controllerGroup": "batch", "controllerKind": "CronJob"}
+2023-11-16T13:50:18-05:00	INFO	Starting workers	{"controller": "cronjob", "controllerGroup": "batch", "controllerKind": "CronJob", "worker count": 1}
+2023-11-16T13:50:49-05:00	INFO	Stopping and waiting for non leader election runnables
+2023-11-16T13:50:49-05:00	INFO	Stopping and waiting for leader election runnables
+2023-11-16T13:50:49-05:00	INFO	Shutdown signal received, waiting for all workers to finish	{"controller": "cronjob", "controllerGroup": "batch", "controllerKind": "CronJob"}
+2023-11-16T13:50:49-05:00	INFO	All workers finished	{"controller": "cronjob", "controllerGroup": "batch", "controllerKind": "CronJob"}
+2023-11-16T13:50:49-05:00	INFO	Stopping and waiting for caches
+2023-11-16T13:50:49-05:00	INFO	Stopping and waiting for webhooks
+2023-11-16T13:50:49-05:00	INFO	Stopping and waiting for HTTP servers
+2023-11-16T13:50:49-05:00	INFO	shutting down server	{"kind": "health probe", "addr": "[::]:8081"}
+2023-11-16T13:50:49-05:00	INFO	controller-runtime.metrics	Shutting down metrics server with timeout of 1 minute
+2023-11-16T13:50:49-05:00	INFO	Wait completed, proceeding to shutdown the manager
+make: *** [Makefile:91: run] Error 1
