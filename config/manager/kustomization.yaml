@@ -1,2 +1,7 @@
 resources:
 - manager.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: controller
+  newName: quay.io/csye7125_webapp/webapp-container-registry/kube-operator
