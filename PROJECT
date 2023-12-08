@@ -2,19 +2,19 @@
 # This file is used to track the info used to scaffold your project
 # and allow the plugins properly work.
 # More info: https://book.kubebuilder.io/reference/project-config.html
-domain: httpcheck.io
+domain: my.domain
 layout:
 - go.kubebuilder.io/v4
-projectName: operator1
-repo: httpcheck.io
+projectName: operator
+repo: my.domain/guestbook
 resources:
 - api:
     crdVersion: v1
     namespaced: true
   controller: true
-  domain: httpcheck.io
-  group: monitoring
-  kind: CronJob
-  path: httpcheck.io/api/v1alpha1
-  version: v1alpha1
+  domain: my.domain
+  group: webapp
+  kind: Guestbook
+  path: my.domain/guestbook/api/v1
+  version: v1
 version: "3"

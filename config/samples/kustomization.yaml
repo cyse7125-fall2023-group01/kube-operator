@@ -1,4 +1,4 @@
 ## Append samples of your project ##
 resources:
-- monitoring_v1alpha1_cronjob.yaml
+- webapp_v1_guestbook.yaml
 #+kubebuilder:scaffold:manifestskustomizesamples
