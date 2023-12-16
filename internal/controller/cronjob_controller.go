@@ -173,7 +173,7 @@ func (r *CronJobReconciler) buildCronJob(cronJob *monitoringv1alpha1.CronJob) (*
 								},
 							},
 							ImagePullSecrets: imagePullSecrets,
-							RestartPolicy:    corev1.RestartPolicyNever,
+							RestartPolicy:    corev1.RestartPolicyOnFailure,
 						},
 					},
 				},
